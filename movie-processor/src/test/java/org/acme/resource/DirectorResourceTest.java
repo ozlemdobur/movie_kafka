@@ -11,7 +11,6 @@ class DirectorResourceTest {
     @Disabled
     void save() {
     }
-
     @Test
     @Disabled
     void findById() {
