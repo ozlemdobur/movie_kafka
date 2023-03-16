@@ -9,7 +9,7 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 public interface IMovieService {
-    Uni<List<MovieDTO>> listAll();
+    Uni<List<MovieDTO>> listAll(String title, String country);
 
     Uni<MovieDTO> findById(Long id);
 

@@ -1,6 +1,6 @@
 package org.acme;
 
-@RegisterForReflection
+//@RegisterForReflection
 public class MovieCommentDTO {
     private Long movieId;
     private String comment;
