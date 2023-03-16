@@ -1,9 +1,6 @@
 package org.acme.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +12,7 @@ import javax.xml.transform.Source;
 @ToString
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Builder
 public class MovieDTO {
     private Long id;
     @NotNull(message = "Title may not be null")
