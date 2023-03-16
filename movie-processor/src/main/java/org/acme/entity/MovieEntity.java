@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Data
 public class MovieEntity {
 
     @Id
@@ -26,43 +27,4 @@ public class MovieEntity {
     @JoinColumn(name = "director_id", referencedColumnName = "id")
     private DirectorEntity directorEntity;
 
-    public DirectorEntity getDirectorEntity() {
-        return directorEntity;
-    }
-
-    public void setDirectorEntity(DirectorEntity directorEntity) {
-        this.directorEntity = directorEntity;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
 }

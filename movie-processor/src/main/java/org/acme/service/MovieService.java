@@ -85,9 +85,9 @@ public class MovieService implements IMovieService {
     }
 
     public Uni<List<MovieDTO>> findByCountry(String country) {
-
         return movieRepository.findByCountry(country)
-                .onItem().transform(movieEntity -> movieMapper.movieEntityToMovieDTOs(movieEntity));
+                .onItem().invoke(movieEntities -> {if (movieEntities.isEmpty()) throw  new WebApplicationException("Not Found", 404); })
+                .map(movieEntity -> movieMapper.movieEntityToMovieDTOs(movieEntity));
     }
 
     @ReactiveTransactional
