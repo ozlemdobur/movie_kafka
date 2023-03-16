@@ -18,7 +18,11 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.ws.rs.WebApplicationException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 ;
 
 @ApplicationScoped
@@ -34,8 +38,37 @@ public class MovieService implements IMovieService {
         this.movieCommentProducer = movieCommentProducer;
     }
 
-    public Uni<List<MovieDTO>> listAll() {
-        return movieRepository.listAll().map(p -> movieMapper.movieEntityToMovieDTOs(p));
+    public Uni<List<MovieDTO>> listAll(String title, String country) {
+        //FISRT WAY
+/*        String filter = "";
+        if (title != null && country != null) {
+            return movieRepository.find("SELECT m FROM MovieEntity m WHERE m.country = ?1 and m.title = ?2 ORDER BY id DESC", country, title)
+                    .list().map(p -> movieMapper.movieEntityToMovieDTOs(p));
+        } else if (country != null) {
+            return movieRepository.find("SELECT m FROM MovieEntity m WHERE m.country = ?1 ORDER BY id DESC", country)
+                    .list().map(p -> movieMapper.movieEntityToMovieDTOs(p));
+        } else if (title != null) {
+            return movieRepository.find("SELECT m FROM MovieEntity m WHERE m.title = ?1 ORDER BY id DESC", title)
+                    .list().map(p -> movieMapper.movieEntityToMovieDTOs(p));
+        } else {
+            return movieRepository.listAll().map(p -> movieMapper.movieEntityToMovieDTOs(p));
+        }*/
+
+
+        //Second way
+
+        if (title != null && country != null) {
+            return movieRepository.findByTitleAndCountry(country,title).onItem()
+                    .transform(p -> movieMapper.movieEntityToMovieDTOs(p));
+        } else if (country != null) {
+            return movieRepository.findByCountry(country).onItem()
+                    .transform(p -> movieMapper.movieEntityToMovieDTOs(p));
+        } else if (title != null) {
+            return movieRepository.findByTitle(title).onItem()
+                    .transform(p -> movieMapper.movieEntityToMovieDTOs(p));
+        } else {
+            return movieRepository.listAll().map(p -> movieMapper.movieEntityToMovieDTOs(p));
+        }
     }
 
     public Uni<MovieDTO> findById(Long id) {

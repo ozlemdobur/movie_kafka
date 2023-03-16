@@ -7,6 +7,7 @@ import org.acme.service.IMovieService;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import javax.ws.rs.*;
@@ -28,9 +29,8 @@ public class MovieResource {
     }
 
     @GET
-    public Uni<Response> getAll() {
-        return movieService.listAll()
-                .map(movie -> Response.ok(movie).build());
+    public Uni<Response> getAll(@QueryParam("title") String title, @QueryParam("country") String country) {
+        return movieService.listAll(title, country).map(movie -> Response.ok(movie).build());
     }
 
     @GET
