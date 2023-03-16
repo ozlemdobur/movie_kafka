@@ -18,7 +18,7 @@ public class MovieEntity {
     @GeneratedValue(generator = "seq_movie")
     @SequenceGenerator(name = "seq_movie", sequenceName = "seq_movie", allocationSize = 1, initialValue = 1)
     private Long id;
-    @Column(unique = true, nullable = false)
+    //@Column(unique = true, nullable = false)
     private String title;
     private String description;
     private String country;

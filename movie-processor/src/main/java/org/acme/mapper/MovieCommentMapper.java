@@ -9,6 +9,8 @@ import org.mapstruct.factory.Mappers;
 public interface MovieCommentMapper {
     MovieCommentMapper INSTANCE = Mappers.getMapper(MovieCommentMapper.class);
 
+
+
     MovieCommentEntity movieCommentDTOToMovieCommentEntity(MovieCommentDTO movieCommentDTO);
 
     MovieCommentDTO movieCommentEntityToMovieCommentDTO(MovieCommentEntity movieCommentEntity);
