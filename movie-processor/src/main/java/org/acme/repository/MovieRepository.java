@@ -15,9 +15,8 @@ public class MovieRepository implements PanacheRepository<MovieEntity> {
     public Uni<List<MovieEntity>> findByTitle(String title) {
         return list("title= ?1 ORDER BY id DESC", title);
     }
-    public Uni<List<MovieEntity>> findByTitleAndCountry(String country, String title) {
+    public Uni<List<MovieEntity>> findByTitleAndCountry(String title, String country) {
         return list("country = ?1 and title= ?2 ORDER BY id DESC", country,title);
     }
-
 
 }
