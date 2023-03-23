@@ -13,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
+@Builder
 public class MovieEntity {
 
     @Id
