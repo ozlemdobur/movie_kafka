@@ -1,6 +1,5 @@
 package org.acme.dto;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

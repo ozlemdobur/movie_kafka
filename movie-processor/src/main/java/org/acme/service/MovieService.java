@@ -39,26 +39,8 @@ public class MovieService implements IMovieService {
     }
 
     public Uni<List<MovieDTO>> listAll(String title, String country) {
-        //FISRT WAY
-/*        String filter = "";
         if (title != null && country != null) {
-            return movieRepository.find("SELECT m FROM MovieEntity m WHERE m.country = ?1 and m.title = ?2 ORDER BY id DESC", country, title)
-                    .list().map(p -> movieMapper.movieEntityToMovieDTOs(p));
-        } else if (country != null) {
-            return movieRepository.find("SELECT m FROM MovieEntity m WHERE m.country = ?1 ORDER BY id DESC", country)
-                    .list().map(p -> movieMapper.movieEntityToMovieDTOs(p));
-        } else if (title != null) {
-            return movieRepository.find("SELECT m FROM MovieEntity m WHERE m.title = ?1 ORDER BY id DESC", title)
-                    .list().map(p -> movieMapper.movieEntityToMovieDTOs(p));
-        } else {
-            return movieRepository.listAll().map(p -> movieMapper.movieEntityToMovieDTOs(p));
-        }*/
-
-
-        //Second way
-
-        if (title != null && country != null) {
-            return movieRepository.findByTitleAndCountry(country,title).onItem()
+            return movieRepository.findByTitleAndCountry(title,country).onItem()
                     .transform(p -> movieMapper.movieEntityToMovieDTOs(p));
         } else if (country != null) {
             return movieRepository.findByCountry(country).onItem()
@@ -85,9 +67,9 @@ public class MovieService implements IMovieService {
     }
 
     public Uni<List<MovieDTO>> findByCountry(String country) {
-
         return movieRepository.findByCountry(country)
-                .onItem().transform(movieEntity -> movieMapper.movieEntityToMovieDTOs(movieEntity));
+                .onItem().invoke(movieEntities -> {if (movieEntities.isEmpty()) throw  new WebApplicationException("Not Found", 404); })
+                .map(movieEntity -> movieMapper.movieEntityToMovieDTOs(movieEntity));
     }
 
     @ReactiveTransactional

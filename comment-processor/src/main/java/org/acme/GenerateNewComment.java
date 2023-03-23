@@ -9,7 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 public class GenerateNewComment {
     @Incoming("new-movie")
     @Outgoing("new-comment-out")
-    public MovieCommentDTO process(Long newMovieId){
+    public MovieCommentDTO process(Long newMovieId) throws InterruptedException{
         System.out.println(newMovieId.toString());
         return new MovieCommentDTO(newMovieId, "Movie is created...");
     }
